@@ -5,19 +5,19 @@ import { useEffect, useState } from "react";
 function App() {
   const [meal, setMeal] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://www.themealdb.com/api/json/v1/1/random.php"
-        );
-        const data = await response.json();
-        setMeal(data.meals[0]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/random.php"
+      );
+      const data = await response.json();
+      setMeal(data.meals[0]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -27,6 +27,7 @@ function App() {
         <p>Loading...</p>
       ) : (
         <div>
+          <button onClick={fetchData}>Get New Meal</button>
           <h2>Meal of the Day</h2>
           <div>
             <h2>{meal.strMeal}</h2>
