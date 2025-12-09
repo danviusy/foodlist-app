@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function HomePage() {
   const navigate = useNavigate();
   const [meal, setMeal] = useState(null);
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -19,6 +20,10 @@ function HomePage() {
 
   useEffect(() => {
     fetchData();
+    fetch("http://localhost:5000/recipes")
+      .then((res) => res.json())
+      .then((data) => setSavedRecipes(data))
+      .catch((error) => console.error("Error fetching recipes:", error));
   }, []);
 
   return (
@@ -36,6 +41,13 @@ function HomePage() {
               className="Food-image"
               alt="food-image"
             />
+          </div>
+          <div>
+            <ul>
+              {savedRecipes.map((recipe) => (
+                <li key={recipe.id}>{recipe.name}</li>
+              ))}
+            </ul>
           </div>
           <button onClick={() => navigate("/search")}>Search Recipes</button>
         </div>
