@@ -18,12 +18,37 @@ function HomePage() {
     }
   };
 
+  const saveRecipe = async (id, name) => {
+    try {
+      console.log("Saving recipe:", id, name);
+      await fetch("http://localhost:5000/saveRecipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, name }),
+      });
+      console.log("Recipe saved successfully");
+      getSavedRecipes();
+      console.log("Rerendered saved recipes");
+    } catch (error) {
+      console.error("Error saving recipe:", error);
+    }
+  };
+
+  const getSavedRecipes = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/recipes");
+      const data = await response.json();
+      setSavedRecipes([...data]);
+    } catch (error) {
+      console.error("Error fetching saved recipes:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
-    fetch("http://localhost:5000/recipes")
-      .then((res) => res.json())
-      .then((data) => setSavedRecipes(data))
-      .catch((error) => console.error("Error fetching recipes:", error));
+    getSavedRecipes();
   }, []);
 
   return (
@@ -41,6 +66,9 @@ function HomePage() {
               className="Food-image"
               alt="food-image"
             />
+            <button onClick={() => saveRecipe(meal.idMeal, meal.strMeal)}>
+              Save Recipe
+            </button>
           </div>
           <div>
             <ul>
