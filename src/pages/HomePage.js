@@ -18,6 +18,18 @@ function HomePage() {
     }
   };
 
+  const deleteAllRecipes = async () => {
+    try {
+      console.log("Deleting all recipes");
+      await fetch("http://localhost:5000/deleteRecipes", {
+        method: "DELETE",
+      });
+      getSavedRecipes();
+    } catch (error) {
+      console.error("Error deleting recipes:", error);
+    }
+  };
+
   const saveRecipe = async (id, name) => {
     try {
       console.log("Saving recipe:", id, name);
@@ -57,9 +69,9 @@ function HomePage() {
         <p>Loading...</p>
       ) : (
         <div>
-          <button onClick={fetchData}>Get New Meal</button>
-          <h2>Meal of the Day</h2>
           <div>
+            <button onClick={fetchData}>Get New Meal</button>
+            <h2>Meal of the Day</h2>
             <h2>{meal.strMeal}</h2>
             <img
               src={meal.strMealThumb}
@@ -70,14 +82,21 @@ function HomePage() {
               Save Recipe
             </button>
           </div>
+          <button onClick={deleteAllRecipes}>Delete All Recipes</button>
+
           <div>
+            <h2>Saved Recipes</h2>
             <ul>
               {savedRecipes.map((recipe) => (
                 <li key={recipe.id}>{recipe.name}</li>
               ))}
             </ul>
           </div>
+
           <button onClick={() => navigate("/search")}>Search Recipes</button>
+          <button onClick={() => navigate("/create")}>
+            Create your own recipe
+          </button>
         </div>
       )}
     </div>
