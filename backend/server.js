@@ -63,4 +63,16 @@ app.post("/addSteps", (req, res) => {
   });
 });
 
+app.get("/recipes", (req, res) => {
+  const stmt = db.prepare("SELECT * FROM external_recipe");
+  const rows = stmt.all();
+  return res.json(rows);
+});
+
+app.get("/internalRecipes", (req, res) => {
+  const stmt = db.prepare("SELECT * FROM internal_recipe");
+  const rows = stmt.all();
+  return res.json(rows);
+});
+
 app.listen(5000, () => console.log("Backend running on port 5000"));
