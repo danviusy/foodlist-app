@@ -75,4 +75,11 @@ app.get("/internalRecipes", (req, res) => {
   return res.json(rows);
 });
 
+app.get("/internalRecipe/:id", (req, res) => {
+  const { id } = req.params;
+  const stmt = db.prepare("SELECT * FROM internal_recipe WHERE id = ?");
+  const row = stmt.get(id);
+  return res.json(row);
+});
+
 app.listen(5000, () => console.log("Backend running on port 5000"));
