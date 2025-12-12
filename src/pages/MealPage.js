@@ -9,6 +9,30 @@ const MealPage = () => {
 
   const [meal, setMeal] = React.useState(null);
 
+  const deleteExternalRecipe = async (id) => {
+    try {
+      await fetch(`http://localhost:5000/deleteRecipe/${id}`, {
+        method: "DELETE",
+      });
+      console.log("Recipe deleted successfully");
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting recipe:", error);
+    }
+  };
+
+  const deleteInternalRecipe = async (id) => {
+    try {
+      await fetch(`http://localhost:5000/deleteInternalRecipe/${id}`, {
+        method: "DELETE",
+      });
+      console.log("Internal recipe deleted successfully");
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting internal recipe:", error);
+    }
+  };
+
   const getExternalRecipe = async (id) => {
     try {
       const response = await fetch(
@@ -55,9 +79,15 @@ const MealPage = () => {
       {!meal ? (
         <p>Loading...</p>
       ) : isExternal ? (
-        <h1>{meal.strMeal}</h1>
+        <div>
+          <h1>{meal.strMeal}</h1>
+          <button onClick={() => deleteExternalRecipe(id)}>Delete</button>
+        </div>
       ) : (
-        <h1>{meal.name}</h1>
+        <div>
+          <h1>{meal.name}</h1>
+          <button onClick={() => deleteInternalRecipe(id)}>Delete</button>
+        </div>
       )}
 
       <p>This is not the page that you are looking for!</p>

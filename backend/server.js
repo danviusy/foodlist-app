@@ -30,6 +30,20 @@ app.delete("/deleteRecipes", (req, res) => {
   return res.status(200).json({ message: "All recipes deleted" });
 });
 
+app.delete("/deleteRecipe/:id", (req, res) => {
+  const { id } = req.params;
+  const stmt = db.prepare("DELETE FROM external_recipe WHERE id = ?");
+  stmt.run(id);
+  return res.status(200).json({ message: "Recipe deleted" });
+});
+
+app.delete("/deleteInternalRecipe/:id", (req, res) => {
+  const { id } = req.params;
+  const stmt = db.prepare("DELETE FROM internal_recipe WHERE id = ?");
+  stmt.run(id);
+  return res.status(200).json({ message: "Internal recipe deleted" });
+});
+
 app.post("/createRecipe", (req, res) => {
   const { name, desc } = req.body;
   const stmt = db.prepare(
