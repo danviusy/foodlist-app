@@ -50,9 +50,22 @@ function HomePage() {
 
   const getSavedRecipes = async () => {
     try {
-      const response = await fetch("http://localhost:5000/recipes");
-      const data = await response.json();
-      setSavedRecipes([...data]);
+      const externalRes = await fetch("http://localhost:5000/recipes");
+      const externalData = await externalRes.json();
+
+      const externalRecipes = externalData.map((recipe) => ({
+        ...recipe,
+        external_recipe: true,
+      }));
+
+      const internalRes = await fetch("http://localhost:5000/internalRecipes");
+      const internalData = await internalRes.json();
+
+      const internalRecipes = internalData.map((recipe) => ({
+        ...recipe,
+        external_recipe: false,
+      }));
+      setSavedRecipes([...externalRecipes, ...internalRecipes]);
     } catch (error) {
       console.error("Error fetching saved recipes:", error);
     }
@@ -88,7 +101,20 @@ function HomePage() {
             <h2>Saved Recipes</h2>
             <ul>
               {savedRecipes.map((recipe) => (
-                <li key={recipe.id}>{recipe.name}</li>
+                <li key={recipe.id}>
+                  {recipe.name}
+                  <button
+                    onClick={() =>
+                      navigate(
+                        recipe.external_recipe
+                          ? `/externalMeal/${recipe.id}`
+                          : `/internalMeal/${recipe.id}`
+                      )
+                    }
+                  >
+                    See more
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
