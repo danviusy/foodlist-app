@@ -146,6 +146,7 @@ const MealPage = () => {
               ))}
             </div>
           )}
+          <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
           <button onClick={() => deleteInternalRecipe(id)}>Delete</button>
         </div>
       )}

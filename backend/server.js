@@ -112,4 +112,44 @@ app.get("/steps/:id", (req, res) => {
   return res.json(rows);
 });
 
+app.put("/updateRecipe/:id", (req, res) => {
+  const { id } = req.params;
+  const { name, desc } = req.body;
+  const stmt = db.prepare(
+    "UPDATE internal_recipe SET name = ?, description = ? WHERE id = ?"
+  );
+  stmt.run(name, desc, id);
+  return res.status(200).json({ message: "Recipe updated" });
+});
+
+app.put("/updateIngredients/:id", (req, res) => {
+  const { id } = req.params;
+  const { ingredients } = req.body;
+  const deleteStmt = db.prepare(
+    "DELETE FROM recipe_ingredient WHERE recipe_id = ?"
+  );
+  deleteStmt.run(id);
+  ingredients.forEach(({ name, quantity }) => {
+    const insertStmt = db.prepare(
+      "INSERT INTO recipe_ingredient (recipe_id, ingredient_name, quantity) VALUES (?, ?, ?)"
+    );
+    insertStmt.run(id, name, quantity);
+  });
+  return res.status(200).json({ message: "Ingredients updated" });
+});
+
+app.put("/updateSteps/:id", (req, res) => {
+  const { id } = req.params;
+  const { steps } = req.body;
+  const deleteStmt = db.prepare("DELETE FROM recipe_step WHERE recipe_id = ?");
+  deleteStmt.run(id);
+  steps.forEach(({ step_number, instruction }) => {
+    const insertStmt = db.prepare(
+      "INSERT INTO recipe_step (recipe_id, step_number, instruction) VALUES (?, ?, ?)"
+    );
+    insertStmt.run(id, step_number, instruction);
+  });
+  return res.status(200).json({ message: "Steps updated" });
+});
+
 app.listen(5000, () => console.log("Backend running on port 5000"));
