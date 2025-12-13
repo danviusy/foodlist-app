@@ -8,6 +8,8 @@ const MealPage = () => {
   const isExternal = location.pathname.includes("externalMeal");
 
   const [meal, setMeal] = React.useState(null);
+  const [ingredients, setIngredients] = React.useState([]);
+  const [steps, setSteps] = React.useState([]);
 
   const deleteExternalRecipe = async (id) => {
     try {
@@ -66,11 +68,46 @@ const MealPage = () => {
     }
   };
 
+  const getIngredients = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/ingredients/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setIngredients(data);
+      console.log("Fetched ingredients data:", data);
+    } catch (error) {
+      console.error("Error fetching ingredients:", error);
+    }
+  };
+
+  const getSteps = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/steps/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      data.sort((a, b) => a.step_number - b.step_number);
+      setSteps(data);
+      console.log("Fetched steps data:", data);
+    } catch (error) {
+      console.error("Error fetching steps:", error);
+    }
+  };
+
   useEffect(() => {
     if (isExternal) {
       getExternalRecipe(id);
     } else {
       getInternalRecipe(id);
+      getIngredients(id);
+      getSteps(id);
     }
   }, [id, isExternal]);
 
@@ -86,6 +123,29 @@ const MealPage = () => {
       ) : (
         <div>
           <h1>{meal.name}</h1>
+
+          {!ingredients ? (
+            <p>Loading ingredients...</p>
+          ) : (
+            <div>
+              {ingredients.map((ingredient, index) => (
+                <p key={index}>
+                  {ingredient.quantity} - {ingredient.ingredient_name}
+                </p>
+              ))}
+            </div>
+          )}
+          {!steps ? (
+            <p>Loading steps...</p>
+          ) : (
+            <div>
+              {steps.map((step, index) => (
+                <p key={index}>
+                  Step {step.step_number}: {step.instruction}
+                </p>
+              ))}
+            </div>
+          )}
           <button onClick={() => deleteInternalRecipe(id)}>Delete</button>
         </div>
       )}

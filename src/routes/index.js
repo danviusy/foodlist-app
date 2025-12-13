@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage.js";
 import RecipeSearchPage from "../pages/RecipeSearchPage.js";
 import CreatePage from "../pages/CreatePage.js";
 import MealPage from "../pages/MealPage.js";
+import EditPage from "../pages/EditPage.js";
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path="/create" element={<CreatePage />} />
       <Route path="/externalMeal/:id" element={<MealPage />} />
       <Route path="/internalMeal/:id" element={<MealPage />} />
+      <Route path="/edit/:id" element={<EditPage />} />
     </Routes>
   );
 };
