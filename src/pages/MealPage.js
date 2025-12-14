@@ -150,9 +150,9 @@ const MealPage = () => {
           <button onClick={() => deleteInternalRecipe(id)}>Delete</button>
         </div>
       )}
-
       <p>This is not the page that you are looking for!</p>
       <button onClick={() => navigate("/")}>Home</button>
+      <button></button>
     </div>
   );
 };
