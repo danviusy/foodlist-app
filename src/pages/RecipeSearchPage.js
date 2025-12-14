@@ -258,6 +258,11 @@ const RecipeSearchPage = () => {
             {meals.map((meal) => (
               <li key={meal.idMeal}>
                 <h3>{meal.strMeal}</h3>
+                <button
+                  onClick={() => navigate(`/newExternalMeal/${meal.idMeal}`)}
+                >
+                  See more
+                </button>
               </li>
             ))}
           </ul>

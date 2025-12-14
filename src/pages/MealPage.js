@@ -5,7 +5,9 @@ const MealPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const isExternal = location.pathname.includes("externalMeal");
+  const pathname = location.pathname.toLowerCase();
+  const isExternal = pathname.includes("externalmeal");
+  const isNew = pathname.includes("new");
 
   const [meal, setMeal] = React.useState(null);
   const [ingredients, setIngredients] = React.useState([]);
@@ -20,6 +22,24 @@ const MealPage = () => {
       navigate("/");
     } catch (error) {
       console.error("Error deleting recipe:", error);
+    }
+  };
+
+  const saveRecipe = async (id, name) => {
+    try {
+      console.log("Saving recipe:", id, name);
+      await fetch("http://localhost:5000/saveRecipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, name }),
+      });
+      console.log("Recipe saved successfully");
+      navigate(`/externalMeal/${id}`);
+      console.log("Rerendered saved recipes");
+    } catch (error) {
+      console.error("Error saving recipe:", error);
     }
   };
 
@@ -116,10 +136,17 @@ const MealPage = () => {
       {!meal ? (
         <p>Loading...</p>
       ) : isExternal ? (
-        <div>
-          <h1>{meal.strMeal}</h1>
-          <button onClick={() => deleteExternalRecipe(id)}>Delete</button>
-        </div>
+        isNew ? (
+          <div>
+            <h1>{meal.strMeal}</h1>
+            <button onClick={() => saveRecipe(id, meal.strMeal)}>Save</button>
+          </div>
+        ) : (
+          <div>
+            <h1>{meal.strMeal}</h1>
+            <button onClick={() => deleteExternalRecipe(id)}>Delete</button>
+          </div>
+        )
       ) : (
         <div>
           <h1>{meal.name}</h1>
