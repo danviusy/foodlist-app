@@ -190,14 +190,18 @@ const MealPage = () => {
               <h2>Instructions</h2>
               <ul className="steps-list">
                 {meal.strInstructions
+                  .split(/nutrition facts/i)[0]
                   .split(/\r\n|\n/)
                   .filter(
-                    (step) => step.trim() && !/^step\s*\d+/i.test(step.trim())
+                    (step) =>
+                      step.trim() && !/^(step\s*\d+|\d+\.?)$/i.test(step.trim())
                   )
                   .map((instruction, index) => (
                     <li key={index} className="step-item">
                       <span className="step-number">Step {index + 1}</span>
-                      <p className="step-instruction">{instruction.trim()}</p>
+                      <p className="step-instruction">
+                        {instruction.trim().replace(/^\d+\.\s*/, "")}
+                      </p>
                     </li>
                   ))}
               </ul>
