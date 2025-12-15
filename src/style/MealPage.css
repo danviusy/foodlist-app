@@ -178,6 +178,7 @@
   color: #2c3e50;
   line-height: 1.6;
   text-align: left;
+  margin: 0;
 }
 
 /* Action Buttons */
@@ -324,7 +325,7 @@
 
   .ingredient-item,
   .step-item {
-    padding: 0.75rem 10px !important;
+    padding: 2rem 10px !important;
   }
 
   .btn {
