@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../style/CreatePage.css";
 
 const CreatePage = () => {
   const navigate = useNavigate();
@@ -91,71 +92,132 @@ const CreatePage = () => {
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
   return (
-    <div>
-      <h2>Create a recipe</h2>
-      <form onSubmit={() => createRecipe(name, desc)}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          Description
-          <input
-            type="text"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
-        </label>
-        <button type="submit">Create Recipe</button>
-      </form>
+    <div className="CreatePage">
+      <h1>mangososilly lager en ny oppskrift</h1>
 
-      <div>
-        Ingredients
-        {ingredients.map((ingredient, index) => (
-          <div>
+      <div className="form-container">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            createRecipe(name, desc);
+          }}
+        >
+          <div className="form-group">
+            <label>Name</label>
             <input
               type="text"
-              value={ingredient.name}
-              placeholder="Ingredient"
-              onChange={(e) => updateIngredient(index, "name", e.target.value)}
+              value={name}
+              placeholder="Enter name"
+              onChange={(e) => setName(e.target.value)}
+              required
             />
-            <input
-              type="text"
-              value={ingredient.quantity}
-              placeholder="Quantity"
-              onChange={(e) =>
-                updateIngredient(index, "quantity", e.target.value)
-              }
-            />
-            <button onClick={() => removeIngredient(index)}>Remove</button>
           </div>
-        ))}
-        <button onClick={() => handleAddIngredient()}>Add Ingredient</button>
+
+          <div className="form-group">
+            <label>Description</label>
+            <input
+              type="text"
+              value={desc}
+              placeholder="min super kule low effort natt mat"
+              onChange={(e) => setDesc(e.target.value)}
+              className="textarea-input"
+              required
+            />
+          </div>
+        </form>
       </div>
-      <div>
-        Instructions
-        {steps.map((step, index) => (
-          <div>
-            <label>
-              {index + 1}.
+
+      <div className="recipe-section">
+        <h2>Ingredients</h2>
+        <div className="ingredients-container">
+          {ingredients.map((ingredient, index) => (
+            <div key={index} className="ingredient-input-group">
+              <input
+                type="text"
+                value={ingredient.name}
+                placeholder="Ingredient"
+                onChange={(e) =>
+                  updateIngredient(index, "name", e.target.value)
+                }
+              />
+              <input
+                type="text"
+                value={ingredient.quantity}
+                placeholder="Quantity"
+                onChange={(e) =>
+                  updateIngredient(index, "quantity", e.target.value)
+                }
+              />
+              <button
+                type="button"
+                className="btn-remove"
+                onClick={() => removeIngredient(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
+        <button
+          type="button"
+          className="btn-add btn-add-ingredient"
+          onClick={handleAddIngredient}
+        >
+          +
+        </button>
+      </div>
+
+      <div className="recipe-section">
+        <h2>Instructions</h2>
+        <div className="steps-container">
+          {steps.map((step, index) => (
+            <div key={index} className="step-input-group">
+              <span className="step-number">{index + 1}.</span>
               <input
                 type="text"
                 value={step}
-                placeholder="Quantity"
+                placeholder="Enter instruction step"
                 onChange={(e) => updateStep(index, e.target.value)}
+                className="textarea-input"
               />
-              <button onClick={() => removeStep(index)}>Remove</button>
-            </label>
-          </div>
-        ))}
-        <button onClick={() => handleAddStep()}>Add step</button>
+              <button
+                type="button"
+                className="btn-remove"
+                onClick={() => removeStep(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
+        <button
+          type="button"
+          className="btn-add btn-add-step"
+          onClick={handleAddStep}
+        >
+          +
+        </button>
       </div>
-      <button onClick={() => createRecipe(name, desc)}>Create Recipe</button>
-      <button onClick={() => navigate("/")}>Home</button>
+
+      <div className="form-actions">
+        <button
+          type="button"
+          className="btn-submit"
+          onClick={() => createRecipe(name, desc)}
+        >
+          Create
+        </button>
+      </div>
+
+      <div className="back-button-container">
+        <button
+          className="icon-btn back-btn"
+          onClick={() => navigate("/")}
+          title="Back to Home"
+        >
+          ←
+        </button>
+      </div>
     </div>
   );
 };

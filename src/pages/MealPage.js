@@ -211,7 +211,7 @@ const MealPage = () => {
                 onClick={() => saveRecipe(id, meal.strMeal)}
                 title="Save Recipe"
               >
-                💾
+                🗁
               </button>
             ) : (
               <button
@@ -219,7 +219,7 @@ const MealPage = () => {
                 onClick={() => deleteExternalRecipe(id)}
                 title="Delete Recipe"
               >
-                🗑️
+                🗑
               </button>
             )}
           </div>
