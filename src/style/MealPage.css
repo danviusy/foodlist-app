@@ -1,0 +1,329 @@
+.MealPage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.MealPage-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.MealPage h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meal-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  margin: 1.5rem auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.meal-image:hover {
+  transform: scale(1.05);
+}
+
+.meal-info {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #3498db;
+  text-align: center;
+}
+
+.meal-info p {
+  margin: 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.MealPage p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #7f8c8d;
+  padding: 2rem;
+}
+
+/* Description Section */
+.description-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #3498db;
+}
+
+.description-section p {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Ingredients Section */
+.ingredients-section {
+  margin-bottom: 2rem;
+}
+
+.ingredients-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredient-item {
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  border-left: 4px solid #27ae60;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingredient-item:hover {
+  background: #e8f9f5;
+  transform: translateX(4px);
+  transition: all 0.3s ease;
+}
+
+.ingredient-quantity {
+  font-weight: 600;
+  color: #27ae60;
+  margin-right: 1rem;
+}
+
+.ingredient-name {
+  flex: 1;
+  color: #2c3e50;
+}
+
+/* Steps Section */
+.steps-section {
+  margin-bottom: 2rem;
+}
+
+.steps-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid #9b59b6;
+  padding-bottom: 0.5rem;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-item {
+  padding: 1rem;
+  background: #f8f9fa;
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid #9b59b6;
+}
+
+.step-item:hover {
+  background: #f3e9f8;
+  transform: translateX(4px);
+  transition: all 0.3s ease;
+}
+
+.step-number {
+  font-weight: 600;
+  color: #9b59b6;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.step-instruction {
+  color: #2c3e50;
+  line-height: 1.6;
+}
+
+/* Action Buttons */
+.meal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.icon-btn {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.edit-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2980b9;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.delete-btn-icon {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-btn-icon:hover {
+  background-color: #c0392b;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.save-btn {
+  background-color: #27ae60;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #229954;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.back-btn {
+  background-color: #16a085;
+  color: white;
+}
+
+.back-btn:hover {
+  background-color: #138d75;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(22, 160, 133, 0.3);
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .MealPage {
+    padding: 1rem;
+  }
+
+  .MealPage-container {
+    padding: 1.5rem;
+  }
+
+  .MealPage h1 {
+    font-size: 2rem;
+  }
+
+  .ingredients-section h2,
+  .steps-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .meal-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .icon-btn {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+  }
+
+  .ingredient-item,
+  .step-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .MealPage {
+    padding: 0.75rem;
+  }
+
+  .MealPage-container {
+    padding: 1rem;
+  }
+
+  .MealPage h1 {
+    font-size: 1.5rem;
+  }
+
+  .ingredients-section h2,
+  .steps-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .ingredient-item,
+  .step-item {
+    padding: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .icon-btn {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+  }
+}

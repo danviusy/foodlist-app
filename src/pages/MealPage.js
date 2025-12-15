@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import "../style/MealPage.css";
 
 const MealPage = () => {
   const navigate = useNavigate();
@@ -132,54 +133,167 @@ const MealPage = () => {
   }, [id, isExternal]);
 
   return (
-    <div>
+    <div className="MealPage">
       {!meal ? (
-        <p>Loading...</p>
+        <p className="loading">Loading...</p>
       ) : isExternal ? (
-        isNew ? (
-          <div>
-            <h1>{meal.strMeal}</h1>
-            <button onClick={() => saveRecipe(id, meal.strMeal)}>Save</button>
+        <div className="MealPage-container">
+          <h1>{meal.strMeal}</h1>
+
+          {meal.strMealThumb && (
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="meal-image"
+            />
+          )}
+
+          {meal.strCategory && (
+            <div className="meal-info">
+              <p>
+                <strong>Category:</strong> {meal.strCategory}
+              </p>
+              <p>
+                <strong>Cuisine:</strong> {meal.strArea}
+              </p>
+            </div>
+          )}
+
+          {meal.strIngredient1 && (
+            <div className="ingredients-section">
+              <h2>Ingredients</h2>
+              <ul className="ingredients-list">
+                {Array.from({ length: 20 }, (_, i) => {
+                  const ingredientKey = `strIngredient${i + 1}`;
+                  const measureKey = `strMeasure${i + 1}`;
+                  const ingredient = meal[ingredientKey];
+                  const measure = meal[measureKey];
+
+                  if (ingredient && ingredient.trim()) {
+                    return (
+                      <li key={i} className="ingredient-item">
+                        <span className="ingredient-quantity">
+                          {measure && measure.trim()}
+                        </span>
+                        <span className="ingredient-name">{ingredient}</span>
+                      </li>
+                    );
+                  }
+                  return null;
+                })}
+              </ul>
+            </div>
+          )}
+
+          {meal.strInstructions && (
+            <div className="steps-section">
+              <h2>Instructions</h2>
+              <ul className="steps-list">
+                {meal.strInstructions
+                  .split(/\r\n|\n/)
+                  .filter(
+                    (step) => step.trim() && !/^step\s*\d+/i.test(step.trim())
+                  )
+                  .map((instruction, index) => (
+                    <li key={index} className="step-item">
+                      <span className="step-number">Step {index + 1}</span>
+                      <p className="step-instruction">{instruction.trim()}</p>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="meal-actions">
+            {isNew ? (
+              <button
+                className="icon-btn save-btn"
+                onClick={() => saveRecipe(id, meal.strMeal)}
+                title="Save Recipe"
+              >
+                💾
+              </button>
+            ) : (
+              <button
+                className="icon-btn delete-btn-icon"
+                onClick={() => deleteExternalRecipe(id)}
+                title="Delete Recipe"
+              >
+                🗑️
+              </button>
+            )}
           </div>
-        ) : (
-          <div>
-            <h1>{meal.strMeal}</h1>
-            <button onClick={() => deleteExternalRecipe(id)}>Delete</button>
-          </div>
-        )
+        </div>
       ) : (
-        <div>
+        <div className="MealPage-container">
           <h1>{meal.name}</h1>
 
-          {!ingredients ? (
-            <p>Loading ingredients...</p>
-          ) : (
-            <div>
-              {ingredients.map((ingredient, index) => (
-                <p key={index}>
-                  {ingredient.quantity} - {ingredient.ingredient_name}
-                </p>
-              ))}
+          {meal.description && (
+            <div className="description-section">
+              <p>{meal.description}</p>
             </div>
           )}
-          {!steps ? (
-            <p>Loading steps...</p>
-          ) : (
-            <div>
-              {steps.map((step, index) => (
-                <p key={index}>
-                  Step {step.step_number}: {step.instruction}
-                </p>
-              ))}
+
+          {ingredients.length > 0 && (
+            <div className="ingredients-section">
+              <h2>Ingredients</h2>
+              <ul className="ingredients-list">
+                {ingredients.map((ingredient, index) => (
+                  <li key={index} className="ingredient-item">
+                    <span className="ingredient-quantity">
+                      {ingredient.quantity}
+                    </span>
+                    <span className="ingredient-name">
+                      {ingredient.ingredient_name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
-          <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
-          <button onClick={() => deleteInternalRecipe(id)}>Delete</button>
+
+          {steps.length > 0 && (
+            <div className="steps-section">
+              <h2>Steps</h2>
+              <ul className="steps-list">
+                {steps.map((step, index) => (
+                  <li key={index} className="step-item">
+                    <span className="step-number">Step {step.step_number}</span>
+                    <p className="step-instruction">{step.instruction}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="meal-actions">
+            <button
+              className="icon-btn edit-btn"
+              onClick={() => navigate(`/edit/${id}`)}
+              title="Edit Recipe"
+            >
+              ✎
+            </button>
+            <button
+              className="icon-btn delete-btn-icon"
+              onClick={() => deleteInternalRecipe(id)}
+              title="Delete Recipe"
+            >
+              🗑
+            </button>
+          </div>
         </div>
       )}
-      <p>This is not the page that you are looking for!</p>
-      <button onClick={() => navigate("/")}>Home</button>
-      <button></button>
+
+      <div className="back-button-container">
+        <button
+          className="icon-btn back-btn"
+          onClick={() => navigate("/")}
+          title="Back to Home"
+        >
+          ←
+        </button>
+      </div>
     </div>
   );
 };

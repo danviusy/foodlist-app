@@ -203,7 +203,7 @@ function HomePage() {
               onClick={() => navigate("/search")}
               title="Search Recipes"
             >
-              🔍
+              🔍︎
             </button>
             <button
               className="icon-btn create-btn"
