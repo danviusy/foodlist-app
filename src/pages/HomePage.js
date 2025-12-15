@@ -192,9 +192,6 @@ function HomePage() {
                 No saved recipes yet. Start by saving a recipe!
               </p>
             )}
-            <button className="delete-btn" onClick={deleteAllRecipes}>
-              Delete All Recipes
-            </button>
           </div>
 
           <div className="action-buttons">
