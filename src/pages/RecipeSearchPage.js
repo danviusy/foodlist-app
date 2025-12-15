@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../style/RecipeSearchPage.css";
 
 const RecipeSearchPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const RecipeSearchPage = () => {
   const [mealsByCategory, setMealsByCategory] = React.useState([]);
 
   const [selectedArea, setSelectedArea] = React.useState("");
-  const [areas, setAreas] = React.useState("");
+  const [areas, setAreas] = React.useState([]);
   const [mealsByArea, setMealsByArea] = React.useState([]);
 
   const [filtersOn, setFiltersOn] = React.useState(false);
@@ -158,6 +159,12 @@ const RecipeSearchPage = () => {
     }
   }
   useEffect(() => {
+    getCategories();
+    getIngredients();
+    getAreas();
+  }, []);
+
+  useEffect(() => {
     filterBySearch(search);
   }, [search]);
 
@@ -175,76 +182,85 @@ const RecipeSearchPage = () => {
 
   useEffect(() => {
     filterMeals(mealsByCategory, mealsByIngredient, mealsByArea, mealsBySearch);
-    if (!filtersOn) {
+    if (
+      mealsByCategory.length === 0 &&
+      mealsByIngredient.length === 0 &&
+      mealsByArea.length === 0 &&
+      mealsBySearch.length === 0 &&
+      !filtersOn
+    ) {
       getRandomMeals();
     }
-  }, [mealsByCategory, mealsByIngredient, mealsByArea, mealsBySearch]);
+  }, [
+    mealsByCategory,
+    mealsByIngredient,
+    mealsByArea,
+    mealsBySearch,
+    filtersOn,
+  ]);
 
   return (
     <div>
+      <div className="back-button-container">
+        <button
+          className="icon-btn back-btn"
+          onClick={() => navigate("/")}
+          title="Back to Home"
+        >
+          ←
+        </button>
+      </div>
       <input
         type="text"
         value={search}
         placeholder="Search"
         onChange={(e) => setSearch(e.target.value)}
       />
-      {categories.length === 0 ? (
-        <button onClick={() => getCategories()}>Load Categories</button>
-      ) : (
-        <div>
-          <h2>Select a Category:</h2>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="">--Choose a category--</option>
-            {categories.map((category) => (
-              <option key={category.idCategory} value={category.strCategory}>
-                {category.strCategory}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {ingredients.length === 0 ? (
-        <button onClick={() => getIngredients()}>Load Ingredients</button>
-      ) : (
-        <div>
-          <h2>Select an Ingredient:</h2>
-          <select
-            value={selectedIngredient}
-            onChange={(e) => setSelectedIngredient(e.target.value)}
-          >
-            <option value="">--Choose an ingredient--</option>
-            {ingredients.map((ingredient) => (
-              <option
-                key={ingredient.idIngredient}
-                value={ingredient.strIngredient}
-              >
-                {ingredient.strIngredient}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {areas.length === 0 ? (
-        <button onClick={() => getAreas()}>Load Areas</button>
-      ) : (
-        <div>
-          <h2>Select an Area:</h2>
-          <select
-            value={selectedArea}
-            onChange={(e) => setSelectedArea(e.target.value)}
-          >
-            <option value="">--Choose an area--</option>
-            {areas.map((area) => (
-              <option key={area.strArea} value={area.strArea}>
-                {area.strArea}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+      <div>
+        <h2>Select a Category:</h2>
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="">--Choose a category--</option>
+          {categories.map((category) => (
+            <option key={category.idCategory} value={category.strCategory}>
+              {category.strCategory}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <h2>Select an Ingredient:</h2>
+        <select
+          value={selectedIngredient}
+          onChange={(e) => setSelectedIngredient(e.target.value)}
+        >
+          <option value="">--Choose an ingredient--</option>
+          {ingredients.map((ingredient) => (
+            <option
+              key={ingredient.idIngredient}
+              value={ingredient.strIngredient}
+            >
+              {ingredient.strIngredient}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <h2>Select an Area:</h2>
+        <select
+          value={selectedArea}
+          onChange={(e) => setSelectedArea(e.target.value)}
+        >
+          <option value="">--Choose an area--</option>
+          {areas.map((area) => (
+            <option key={area.strArea} value={area.strArea}>
+              {area.strArea}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {meals.length === 0 ? (
         <div>
@@ -253,24 +269,26 @@ const RecipeSearchPage = () => {
         </div>
       ) : (
         <div>
-          <h2>Here are some random meals for you:</h2>
+          {!filtersOn && <h2>Here are some random meals for you:</h2>}
           <ul>
             {meals.map((meal) => (
-              <li key={meal.idMeal}>
+              <li
+                key={meal.idMeal}
+                onClick={() => navigate(`/newExternalMeal/${meal.idMeal}`)}
+              >
+                {meal.strMealThumb && (
+                  <img
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                    className="meal-image"
+                  />
+                )}
                 <h3>{meal.strMeal}</h3>
-                <button
-                  onClick={() => navigate(`/newExternalMeal/${meal.idMeal}`)}
-                >
-                  See more
-                </button>
               </li>
             ))}
           </ul>
         </div>
       )}
-
-      <p>This is not the page that you are looking for!</p>
-      <button onClick={() => navigate("/")}>Home</button>
     </div>
   );
 };

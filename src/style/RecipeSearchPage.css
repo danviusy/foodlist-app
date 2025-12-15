@@ -1,0 +1,335 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div {
+  width: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* Back Button */
+.back-button-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.icon-btn {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.icon-btn.back-btn {
+  background-color: #16a085;
+  color: white;
+}
+
+.icon-btn.back-btn:hover {
+  background-color: #138d75;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(22, 160, 133, 0.3);
+}
+
+/* Search Input */
+input[type="text"] {
+  width: 90%;
+  max-width: 600px;
+  padding: 0.75rem;
+  margin: 2rem auto;
+  display: block;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+}
+
+/* Filters Container */
+div > div:has(h2) {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Select Dropdowns */
+select {
+  width: 90%;
+  max-width: 400px;
+  padding: 0.75rem;
+  margin: 0 auto;
+  display: block;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+select:hover {
+  border-color: #3498db;
+}
+
+option {
+  padding: 0.5rem;
+  color: #2c3e50;
+}
+
+/* Buttons */
+button {
+  padding: 0.75rem 1.5rem;
+  margin: 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Welcome Section */
+div:has(h2:contains("Welcome")) {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: white;
+  margin: 2rem auto;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+div:has(h2:contains("Welcome")) h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+div:has(h2:contains("Welcome")) button {
+  background-color: #27ae60;
+  margin: 0 auto;
+}
+
+div:has(h2:contains("Welcome")) button:hover {
+  background-color: #229954;
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+/* Meals List */
+div:has(ul) {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+div:has(ul) > h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+li {
+  background: white;
+  border-radius: 12px;
+  overflow: visible;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+li:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.meal-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none;
+}
+
+li h3 {
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  color: #2c3e50;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 !important;
+  margin-top: 1rem !important;
+}
+
+/* Footer Navigation */
+p {
+  text-align: center;
+  color: #666;
+  margin-top: 3rem;
+  font-size: 0.95rem;
+}
+
+div:has(p) {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+div:has(p) button {
+  background-color: #16a085;
+}
+
+div:has(p) button:hover {
+  background-color: #138d75;
+  box-shadow: 0 4px 8px rgba(22, 160, 133, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  input[type="text"],
+  select {
+    width: 95%;
+    max-width: none;
+  }
+
+  div > div:has(h2) {
+    margin: 1rem;
+    padding: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    margin: 0.75rem;
+  }
+
+  ul {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    padding: 0;
+  }
+
+  li h3 {
+    padding: 1rem;
+    font-size: 1.1rem;
+    min-height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 0.6rem;
+  }
+
+  div > div:has(h2) {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+
+  ul {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  li h3 {
+    padding: 0.75rem;
+    font-size: 1rem;
+    min-height: auto;
+  }
+
+  li button {
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
+  }
+
+  div:has(p) button {
+    width: calc(100% - 1rem);
+  }
+}
