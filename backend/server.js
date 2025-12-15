@@ -96,6 +96,13 @@ app.get("/internalRecipe/:id", (req, res) => {
   return res.json(row);
 });
 
+app.get("/externalRecipe/:id", (req, res) => {
+  const { id } = req.params;
+  const stmt = db.prepare("SELECT * FROM external_recipe WHERE id = ?");
+  const row = stmt.get(id);
+  return res.json(row);
+});
+
 app.get("/ingredients/:id", (req, res) => {
   const { id } = req.params;
   const stmt = db.prepare(

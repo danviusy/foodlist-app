@@ -37,6 +37,10 @@ SELECT * FROM recipe_step;
 DELETE FROM internal_recipe;
 SELECT * FROM internal_recipe;
 
+SELECT * FROM external_recipe;
+
+SELECT * FROM external_recipe WHERE id = 53166;
+
 SELECT * FROM recipe_ingredient;
 
 INSERT INTO internal_recipe (name, description) VALUES
