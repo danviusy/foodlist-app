@@ -256,13 +256,24 @@ div:has(p) button:hover {
 @media (max-width: 768px) {
   input[type="text"],
   select {
-    width: 95%;
-    max-width: none;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 1rem 0 !important;
+    display: block !important;
   }
 
   div > div:has(h2) {
-    margin: 1rem;
-    padding: 1.25rem;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 1.25rem 0.5rem;
+    width: 100%;
+  }
+
+  div:has(ul) {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
   }
 
   h2 {
@@ -278,7 +289,13 @@ div:has(p) button:hover {
   ul {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1rem;
-    padding: 0;
+    padding: 0 0.25rem !important;
+    margin: 0 !important;
+    width: 100%;
+  }
+
+  li {
+    padding: 0 !important;
   }
 
   li h3 {

@@ -102,7 +102,7 @@
 }
 
 .ingredient-item {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 26px;
   background: #f8f9fa;
   margin-bottom: 0.5rem;
   border-radius: 6px;
@@ -324,7 +324,7 @@
 
   .ingredient-item,
   .step-item {
-    padding: 0.75rem;
+    padding: 0.75rem 10px !important;
   }
 
   .btn {
