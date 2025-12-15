@@ -16,9 +16,12 @@ const MealPage = () => {
 
   const deleteExternalRecipe = async (id) => {
     try {
-      await fetch(`http://localhost:5000/deleteRecipe/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://foodlist-app-backend.onrender.com/deleteRecipe/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       console.log("Recipe deleted successfully");
       navigate("/");
     } catch (error) {
@@ -29,7 +32,7 @@ const MealPage = () => {
   const saveRecipe = async (id, name) => {
     try {
       console.log("Saving recipe:", id, name);
-      await fetch("http://localhost:5000/saveRecipe", {
+      await fetch("https://foodlist-app-backend.onrender.com/saveRecipe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,9 +49,12 @@ const MealPage = () => {
 
   const deleteInternalRecipe = async (id) => {
     try {
-      await fetch(`http://localhost:5000/deleteInternalRecipe/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://foodlist-app-backend.onrender.com/deleteInternalRecipe/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       console.log("Internal recipe deleted successfully");
       navigate("/");
     } catch (error) {
@@ -73,7 +79,7 @@ const MealPage = () => {
   const getInternalRecipe = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/internalRecipe/${id}`,
+        `https://foodlist-app-backend.onrender.com/internalRecipe/${id}`,
         {
           method: "GET",
           headers: {
@@ -91,12 +97,15 @@ const MealPage = () => {
 
   const getIngredients = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/ingredients/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://foodlist-app-backend.onrender.com/ingredients/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       setIngredients(data);
       console.log("Fetched ingredients data:", data);
@@ -107,12 +116,15 @@ const MealPage = () => {
 
   const getSteps = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/steps/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://foodlist-app-backend.onrender.com/steps/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       data.sort((a, b) => a.step_number - b.step_number);
       setSteps(data);

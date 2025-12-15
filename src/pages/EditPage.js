@@ -9,7 +9,7 @@ const EditPage = () => {
   const getInternalRecipe = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/internalRecipe/${id}`,
+        `https://foodlist-app-backend.onrender.com/internalRecipe/${id}`,
         {
           method: "GET",
           headers: {
@@ -29,12 +29,15 @@ const EditPage = () => {
 
   const getIngredients = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/ingredients/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://foodlist-app-backend.onrender.com/ingredients/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       const newIngredients = data.map(({ ingredient_name, quantity }) => ({
         name: ingredient_name,
@@ -49,12 +52,15 @@ const EditPage = () => {
 
   const getSteps = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/steps/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://foodlist-app-backend.onrender.com/steps/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       data.sort((a, b) => a.step_number - b.step_number);
       const newSteps = data.map(({ instruction }) => instruction);
@@ -67,13 +73,16 @@ const EditPage = () => {
 
   const updateRecipe = async (name, desc) => {
     try {
-      await fetch(`http://localhost:5000/updateRecipe/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, desc }),
-      });
+      await fetch(
+        `https://foodlist-app-backend.onrender.com/updateRecipe/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, desc }),
+        }
+      );
       updateIngredients(id);
       updateSteps(id);
       console.log("Updated recipe with ID:", id);
@@ -85,13 +94,16 @@ const EditPage = () => {
 
   const updateIngredients = async (id) => {
     try {
-      await fetch(`http://localhost:5000/updateIngredients/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ingredients }),
-      });
+      await fetch(
+        `https://foodlist-app-backend.onrender.com/updateIngredients/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ingredients }),
+        }
+      );
     } catch (error) {
       console.error("Error updating ingredients:", error);
     }
@@ -104,13 +116,16 @@ const EditPage = () => {
       instructions.push({ step_number: index + 1, instruction: step });
     });
     try {
-      await fetch(`http://localhost:5000/updateSteps/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ steps: instructions }),
-      });
+      await fetch(
+        `https://foodlist-app-backend.onrender.com/updateSteps/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ steps: instructions }),
+        }
+      );
     } catch (error) {
       console.error("Error updating steps:", error);
     }

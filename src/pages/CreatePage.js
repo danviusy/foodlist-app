@@ -7,7 +7,7 @@ const CreatePage = () => {
 
   const sendIngredients = async (recipeId) => {
     try {
-      await fetch("http://localhost:5000/addIngredients", {
+      await fetch("https://foodlist-app-backend.onrender.com/addIngredients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,13 +21,16 @@ const CreatePage = () => {
 
   const createRecipe = async (name, desc) => {
     try {
-      const res = await fetch("http://localhost:5000/createRecipe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, desc }),
-      });
+      const res = await fetch(
+        "https://foodlist-app-backend.onrender.com/createRecipe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, desc }),
+        }
+      );
       const data = await res.json();
       const recipeId = data.recipe_id;
       console.log("Created recipe with ID:", recipeId);
@@ -46,7 +49,7 @@ const CreatePage = () => {
       instructions.push({ step_number: index + 1, instruction: step });
     });
     try {
-      await fetch("http://localhost:5000/addSteps", {
+      await fetch("https://foodlist-app-backend.onrender.com/addSteps", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

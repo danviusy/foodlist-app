@@ -15,7 +15,7 @@ function HomePage() {
   const checkMoftdSaved = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/externalRecipe/${id}`
+        `https://foodlist-app-backend.onrender.com/externalRecipe/${id}`
       );
       const data = await response.json();
       console.log(data);
@@ -48,7 +48,7 @@ function HomePage() {
   const deleteAllRecipes = async () => {
     try {
       console.log("Deleting all recipes");
-      await fetch("http://localhost:5000/deleteRecipes", {
+      await fetch("https://foodlist-app-backend.onrender.com/deleteRecipes", {
         method: "DELETE",
       });
       getSavedRecipes();
@@ -59,9 +59,12 @@ function HomePage() {
 
   const deleteExternalRecipe = async (id) => {
     try {
-      await fetch(`http://localhost:5000/deleteRecipe/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://foodlist-app-backend.onrender.com/deleteRecipe/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       console.log("Recipe deleted successfully");
       getSavedRecipes();
       checkMoftdSaved(id);
@@ -73,7 +76,7 @@ function HomePage() {
   const saveRecipe = async (id, name) => {
     try {
       console.log("Saving recipe:", id, name);
-      await fetch("http://localhost:5000/saveRecipe", {
+      await fetch("https://foodlist-app-backend.onrender.com/saveRecipe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +94,9 @@ function HomePage() {
 
   const getSavedRecipes = async () => {
     try {
-      const externalRes = await fetch("http://localhost:5000/recipes");
+      const externalRes = await fetch(
+        "https://foodlist-app-backend.onrender.com/recipes"
+      );
       const externalData = await externalRes.json();
 
       const externalRecipes = externalData.map((recipe) => ({
@@ -99,7 +104,9 @@ function HomePage() {
         external_recipe: true,
       }));
 
-      const internalRes = await fetch("http://localhost:5000/internalRecipes");
+      const internalRes = await fetch(
+        "https://foodlist-app-backend.onrender.com/internalRecipes"
+      );
       const internalData = await internalRes.json();
 
       const internalRecipes = internalData.map((recipe) => ({
