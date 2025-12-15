@@ -135,7 +135,7 @@ function HomePage() {
 
   return (
     <div className="HomePage">
-      <h1>Amanda's kokebok!</h1>
+      <h1>Amandas kokebok!</h1>
       {!meal ? (
         <p className="loading">Loading...</p>
       ) : (
@@ -209,6 +209,10 @@ function HomePage() {
             >
               +
             </button>
+          </div>
+
+          <div className="bottom-image-container">
+            <img src="/mercy.png" alt="mercy" className="cursedmercy" />
           </div>
         </>
       )}

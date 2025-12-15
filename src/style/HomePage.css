@@ -344,3 +344,23 @@
     border-radius: 50% !important;
   }
 }
+/* Bottom Image */
+.bottom-image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.cursedmercy {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.cursedmercy:hover {
+  transform: scale(1.05);
+}
